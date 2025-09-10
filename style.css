@@ -1,0 +1,106 @@
+:root {
+    --primary-blue: #317292;
+    --dark-gray: #333333;
+}
+
+body {
+    margin: 0;
+    padding-bottom: 100px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--dark-gray);
+    line-height: 1.6;
+    background-color: #FFFFFF;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Navigation */
+nav {
+    position:sticky;
+    bottom: 0;
+    width: 100%;
+    margin: 3rem 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;    
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark-gray);
+}
+
+/* Image Section */
+/* .image container with its own size */
+.image {
+    margin: 0 auto; /* centers the container */
+    display: block; /* blockify the container for margin */
+    padding-top: 100px; 
+    padding-bottom: 10px;
+}
+/* img is the actual image size */
+img {
+    width: 400px;
+    border-radius: 500px;
+    margin: 0 auto; /* centers the image inside the container */
+    display: block  /* allows the margin auto to work */
+}
+
+/* Hero Section */
+.hero {
+    padding: 3rem 0;
+    text-align: left;
+}
+
+.hero h1 {
+  font-size: 5rem;
+  margin: 0;
+  display: block;
+  color: var(--dark-gray);
+  text-align: center;
+}
+/* span - inline element to target a part of text inside another element*/
+.hero h1 span {
+  color: var(--primary-blue);
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin: 1rem 0;
+  display: block;
+  color: var(--dark-gray);
+  text-align: center; /* aligns the text in center of container */
+}
+
+.hero h2 span {
+  color: var(--primary-blue);
+}
+
+.hero form {
+    margin-top: 3rem;
+    display: block;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.hero h3 {
+  max-width: auto;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin: 0 auto;
+    display: block;
+}
+
+.hero p span {
+    color: var(--primary-blue)
+}
