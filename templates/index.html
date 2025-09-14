@@ -2,21 +2,21 @@
 <html>
     <head>
         <title>Welcome to 4day</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
 
     <body>
         <div class ="container"> <!-- [Container Start] -->
             <div class = "image">
-                <img src="images/logo_png.png" alt="4day">
+                <img src="{{ url_for('static', filename='images/logo_png.png') }}" alt="4day">
             </div>
             <section class="hero"> <!-- section starts -->
                 <div class="hero-content">
                     <h1>Welcome to <span>4day!</span></h1>
                     <h2><span>Please</span> enter your information</h2>
                     <form action="/submit" method="post">
-                        <input type="text" name="name" placeholder="Your Name">
-                        <input type="email" name="email" placeholder="Your Email">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
                         <button type="submit">Submit</button>
                     </form>
                     <h3>We'll send nothing else.</h3>
@@ -24,7 +24,7 @@
                 </div>
                 <nav>
                     <div class="nav-links">
-                        <a href="about.html">about</a>
+                        <a href="{{ url_for('about') }}">about</a>
                         <a href="mailto:4day.reminder@gmail.com">contact</a>
                     </div>
                 </nav>
