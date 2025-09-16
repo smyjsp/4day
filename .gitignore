@@ -17,3 +17,6 @@ ENV/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Data 
+data.json

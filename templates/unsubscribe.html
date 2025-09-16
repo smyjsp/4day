@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Removed</title>
+        <title>Unsubscribe</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
+
     <body>
-        <div class = "image">
-            <img src="{{ url_for('static', filename='images/logo_png.png') }}" alt="4day">
-        </div>
-        <div class="container">
-            <section class="hero">
-                <div class="hero-about">
-                    <h2>Your email has been removed</h2>
-                    <h2><span>Thank you for your service!</span></h2>
+        <div class ="container"> <!-- [Container Start] -->
+            <div class = "image">
+                <img src="{{ url_for('static', filename='images/logo_png.png') }}" alt="4day">
+            </div>
+            <section class="hero"> <!-- section starts -->
+                <div class="hero-content">
+                    <h1>Sorry to see you go</span></h1>
+                    <h2><span>Please</span> enter your email address</h2>
+                    <form action="{{ url_for('unsubscribe') }}" method="post">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <button type="submit">Submit</button>
+                    </form>
                 </div>
                 <nav>
                     <div class="nav-links">
-                        <a href="{{ url_for('home') }}">home</a>
                         <a href="{{ url_for('about') }}">about</a>
                         <a href="mailto:4day.reminder@gmail.com">contact</a>
                     </div>
                 </nav>
-            </section>
-        </div>
+            </section> <!-- section ends -->
+        </div> <!-- [Container End] -->
     </body>
 </html>

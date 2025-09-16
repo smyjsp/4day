@@ -31,17 +31,35 @@ def submit():
     data.append({"name": name, "email": email})
 
     with open(DATA_FILE, "w") as f:
-        json.dump(data, f, indent=4)
+        json.dump(data, f, indent = 4)
     
-    return redirect(url_for("thankyou"))
+    return render_template("thankyou.html", name=name) #key=value without spaces
 
 @app.route("/thankyou")
 def thankyou():
     return render_template("thankyou.html")
 
-@app.route("/unsubscribe")
+@app.route("/unsubscribe", methods=["GET", "POST"])
 def unsubscribe():
+    if request.method == "POST":
+        email = request.form.get("email")
+
+        with open(DATA_FILE, "r") as f:
+            data = json.load(f)
+
+        # keeps the users whos email is NOT the one entered
+        updated_data = [entry for entry in data if entry["email"] != email]
+
+        with open(DATA_FILE, "w") as f:
+            json.dump(updated_data, f, indent = 4)
+        
+        return render_template("unsubscribed.html", email=email) #key=value without spaces
+    
     return render_template("unsubscribe.html")
+
+@app.route("/unsubscribed")
+def unsubscribed():
+    return render_template("unsubscribed.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
