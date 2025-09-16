@@ -104,3 +104,9 @@ img {
 .hero p span {
     color: var(--primary-blue)
 }
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+}
