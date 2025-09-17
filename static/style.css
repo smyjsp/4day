@@ -106,7 +106,36 @@ img {
 }
 
 .error {
-    color: red;
+    color: lightcoral;
     font-weight: bold;
     margin-top: 5px;
+    text-align: center;
+}
+
+form input,
+form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 16px;
+}
+
+button {
+    border-radius: 25px;
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+a:hover {
+    color: var(--primary-blue);
+    text-decoration: underline;
+    transition: all 0.3s ease;
 }

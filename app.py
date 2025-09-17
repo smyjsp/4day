@@ -25,11 +25,18 @@ def submit():
     name = request.form.get("name")
     email = request.form.get("email")
 
+    # Backend Validation
+    if not (email.endswith(".com") or email.endswith(".mil")):
+        return render_template("thankyou.html", error="Invalid email domain.", name=name, email=email)
+
+    # Load existing data
     with open(DATA_FILE, "r") as f:
         data = json.load(f)
 
+    # Append new entry
     data.append({"name": name, "email": email})
 
+    # Save Data
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent = 4)
     

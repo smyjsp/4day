@@ -13,6 +13,9 @@
                 <div class="hero-about">
                     <h1><span>Thank you for registering and for your service {{ name }}!</span></h1>
                 </div>
+                {% if error %}
+                <p class="error">{{ error }}</p>
+                {% endif %}
                 <nav>
                     <div class="nav-links">
                         <a href="{{ url_for('home') }}">home</a>

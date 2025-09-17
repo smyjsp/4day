@@ -14,7 +14,7 @@
                 <div class="hero-content">
                     <h1>Welcome to <span>4day!</span></h1>
                     <h2><span>Please</span> enter your information</h2>
-                    <form action="/submit" method="post">
+                    <form id="signupForm" action="/submit" method="post">
                         <input type="text" name="name" placeholder="Your Name" required>
                         <input 
                             type="email" 
@@ -22,7 +22,8 @@
                             placeholder="Your Email" 
                             required
                         >
-                        <button type="sumbit">Submit</button>
+                        <button type="submit">Submit</button>
+                        <div id="errorMessage"></div>
                     </form>
                     <h3>We'll send nothing else.</h3>
                     <h3>No ads, no news, no bs.</h3>
@@ -36,5 +37,6 @@
                 </nav>
             </section> <!-- section ends -->
         </div> <!-- [Container End] -->
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
