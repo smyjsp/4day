@@ -13,8 +13,8 @@ def send_email(to_email, name):
     sender = os.getenv("EMAIL_USER")
     password = os.getenv("EMAIL_PASS")
 
-    msg = MIMEText(f"Hello {name}, \n Test")
-    msg["Subject"] = "4day Test"
+    msg = MIMEText(f"Hello {name}, \n\nThanks for signing up! Have a great day! \n\n\n\nSincerely, \n4day")
+    msg["Subject"] = "4day"
     msg["From"] = sender
     msg["To"] = to_email
 
@@ -50,7 +50,7 @@ def submit():
     email = request.form.get("email")
 
     # Backend Validation
-    if not (email.endswith(".com") or email.endswith(".mil")):
+    if not (email.endswith(".com") or email.endswith(".mil") or email.endswith(".edu")):
         return render_template("thankyou.html", error="Invalid email domain.", name=name, email=email)
 
     # Load existing data
