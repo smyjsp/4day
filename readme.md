@@ -1,7 +1,7 @@
 # Holiday Support Email Program
 
 <p align="center">
-  <img src="logo.png" alt="4day" />
+  <img src="logo.png" alt="4day" withd="40%" />
 </p>
 
 ## Purpose
