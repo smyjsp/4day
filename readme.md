@@ -1,4 +1,8 @@
-# Holiday Support Email Program 🎄✉️
+# Holiday Support Email Program
+
+<p align="center">
+  <img src="logo_png.png" alt="4day" />
+</p>
 
 ## Purpose
 Many veterans and service members feel especially isolated during the 4 day weekend and holiday season.  
