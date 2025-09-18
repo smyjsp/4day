@@ -1,8 +1,32 @@
 from flask import Flask, render_template, request, redirect, url_for 
 import json
 import os
+import smtplib
+from email.mime.text import MIMEText
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
+
+def send_email(to_email, name):
+    sender = os.getenv("EMAIL_USER")
+    password = os.getenv("EMAIL_PASS")
+
+    msg = MIMEText(f"Hello {name}, \n Test")
+    msg["Subject"] = "4day Test"
+    msg["From"] = sender
+    msg["To"] = to_email
+
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(sender, password)
+            server.sendmail(sender, to_email, msg.as_string())
+        print("Email Sent")
+    except Exception as e:
+        print("Error", e)
+
 
 # url_for() must match the function name of the route
 @app.route("/")
@@ -39,6 +63,9 @@ def submit():
     # Save Data
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent = 4)
+
+    # Send email
+    send_email(email, name)
     
     return render_template("thankyou.html", name=name) #key=value without spaces
 

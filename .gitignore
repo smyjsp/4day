@@ -20,3 +20,6 @@ Thumbs.db
 
 # Data 
 data.json
+
+# Environemnt variable file
+.env
