@@ -4,17 +4,23 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
+from apscheduler.schedulers.background import BackgroundScheduler
+from datetime import datetime
+from pytz import timezone
 
 load_dotenv()
 
 app = Flask(__name__)
 
-def send_email(to_email, name):
+def send_email(to_email, name, subject="4day", body=None):
     sender = os.getenv("EMAIL_USER")
     password = os.getenv("EMAIL_PASS")
 
-    msg = MIMEText(f"Hello {name}, \n\nThanks for signing up! Have a great day! \n\n\n\nSincerely, \n4day")
-    msg["Subject"] = "4day"
+    if body is None:
+        body = f"Hello {name}, \n\nThanks for signing up! Have a great day! \n\n\n\nSincerely, \n4day"
+    
+    msg = MIMEText(body)
+    msg["Subject"] = subject
     msg["From"] = sender
     msg["To"] = to_email
 
@@ -95,5 +101,40 @@ def unsubscribe():
 def unsubscribed():
     return render_template("unsubscribed.html")
 
+scheduler = BackgroundScheduler()
+
+def send_holiday_emails():
+    today = datetime.now().strftime("%m-%d")
+    
+    try:
+        with open("holidays.json", "r") as f:
+            holiday_messages = json.load(f)
+    except FileNotFoundError:
+        print("holidays.json not found")
+        return 
+
+    if today in holiday_messages:
+        with open(DATA_FILE, "r") as f:
+            users = json.load(f)
+        
+        for user in users:
+            send_email(
+                user["email"],
+                user["name"],
+                subject = "Holiday Greetings from 4day",
+                body=f"Hello {user['name']}, \n\n{holiday_messages[today]}\n\n- 4day"
+            )
+
+scheduler.add_job(
+    send_holiday_emails, 
+    "cron", 
+    hour=8, 
+    minute=0,
+    timezone=timezone("US/Eastern"))
+
+#scheduler.add_job(send_holiday_emails, "interval", minutes=1) # For testing purpose
+scheduler.start()
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    send_holiday_emails() # For testing purpose
+    app.run(debug=True, use_reloader=False) 
