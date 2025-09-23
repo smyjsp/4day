@@ -3,6 +3,7 @@ import json
 import os
 import smtplib
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
@@ -16,13 +17,24 @@ def send_email(to_email, name, subject="4day", body=None):
     sender = os.getenv("EMAIL_USER")
     password = os.getenv("EMAIL_PASS")
 
-    if body is None:
-        body = f"Hello {name}, \n\nThanks for signing up! Have a great day! \n\n\n\nSincerely, \n4day"
-    
-    msg = MIMEText(body)
+    msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
     msg["From"] = sender
     msg["To"] = to_email
+
+    if body is None:
+        body = f"""
+        <html>
+            <body style="font-famil: Arial, san-serif; line-height: 1.5;">
+                <p>Hello {name}, </p>
+                <p>Thanks for signing up! Have a great day! </p>
+                <p>Sincerely, <br>4day</p>
+                <p>To unsubscribe, <a href="http://127.0.0.1:5000/unsubscribe?email={to_email}">click here</a></p>
+            </body>
+        </html>
+        """
+    
+    msg.attach(MIMEText(body, "html"))
 
     try:
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
@@ -31,7 +43,7 @@ def send_email(to_email, name, subject="4day", body=None):
             server.sendmail(sender, to_email, msg.as_string())
         print("Email Sent")
     except Exception as e:
-        print("Error", e)
+        print("Error sending", e)
 
 
 # url_for() must match the function name of the route
@@ -79,23 +91,25 @@ def submit():
 def thankyou():
     return render_template("thankyou.html")
 
+
+
 @app.route("/unsubscribe", methods=["GET", "POST"])
 def unsubscribe():
-    if request.method == "POST":
-        email = request.form.get("email")
+    email = request.args.get("email") or request.form.get("email")
 
+    if email:
         with open(DATA_FILE, "r") as f:
             data = json.load(f)
 
-        # keeps the users whos email is NOT the one entered
         updated_data = [entry for entry in data if entry["email"] != email]
 
         with open(DATA_FILE, "w") as f:
-            json.dump(updated_data, f, indent = 4)
-        
-        return render_template("unsubscribed.html", email=email) #key=value without spaces
+            json.dump(updated_data, f, indent=4)
+
+        return render_template("unsubscribed.html", email=email)
     
     return render_template("unsubscribe.html")
+
 
 @app.route("/unsubscribed")
 def unsubscribed():
@@ -118,11 +132,27 @@ def send_holiday_emails():
             users = json.load(f)
         
         for user in users:
+            
+            body_html = f"""
+            <html>
+                <body style="font-family: Arial, sans-serif; line-height: 1.5;">
+                    <p>Dear {user['name']},</p>
+                    <p>{holiday_messages[today]}</p>
+                    <p>Sincerely,<br>4day</p>
+                    <p>
+                        To unsubscribe, 
+                        <a href="http://127.0.0.1:5000/unsubscribe?email={user['email']}" 
+                           style="color:#ff4c4c;">click here</a>
+                    </p>
+                </body>
+            </html>
+            """
+            
             send_email(
                 user["email"],
                 user["name"],
                 subject = "Holiday Greetings from 4day",
-                body=f"Hello {user['name']}, \n\n{holiday_messages[today]}\n\n- 4day"
+                body=body_html
             )
 
 scheduler.add_job(
@@ -132,7 +162,7 @@ scheduler.add_job(
     minute=0,
     timezone=timezone("US/Eastern"))
 
-#scheduler.add_job(send_holiday_emails, "interval", minutes=1) # For testing purpose
+scheduler.add_job(send_holiday_emails, "interval", minutes=1) # For testing purpose
 scheduler.start()
 
 if __name__ == "__main__":

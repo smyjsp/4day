@@ -17,7 +17,7 @@ By registering with the system, users can receive automated supportive emails du
 - **Automated Emails**: Sends warm, supportive messages during long holiday breaks  
 - **Web Interface**: Simple pages for users to **register** or **unregister** from the mailing list  
 - **Respectful & Secure**: No spam — only meaningful holiday outreach  
-- **SMTP Integration**: Currently sends test emails, with full holiday scheduling in development  
+- **SMTP Integration**: full holiday scheduling in development  
 
 ---
 
