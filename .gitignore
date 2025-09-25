@@ -9,7 +9,7 @@ venv/
 ENV/
 .venv/
 
-# IDE/editor stuff
+# IDE/editor
 .vscode/
 .idea/
 *.swp
@@ -23,3 +23,7 @@ data.json
 
 # Environemnt variable file
 .env
+
+# Testing files
+register_test.html
+message_test.html

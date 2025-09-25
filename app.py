@@ -25,11 +25,22 @@ def send_email(to_email, name, subject="4day", body=None):
     if body is None:
         body = f"""
         <html>
-            <body style="font-famil: Arial, san-serif; line-height: 1.5;">
-                <p>Hello {name}, </p>
-                <p>Thanks for signing up! Have a great day! </p>
-                <p>Sincerely, <br>4day</p>
-                <p>To unsubscribe, <a href="http://127.0.0.1:5000/unsubscribe?email={to_email}">click here</a></p>
+            <body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color: #317292; line-height: 1.5;">
+                <div style="max-width:600px; margin:20px auto; 
+                            border-top:4px solid #333333; 
+                            border-bottom:4px solid #333333; 
+                            background:white; padding:30px; 
+                            text-align:center; 
+                            box-shadow:0 0 10px rgba(0,0,0,0.1);">
+                    <h1 style="font-size:24px; color:#333333;">Hello {name}, </h1>
+                    <p style="font-size:18px; color:#333333; line-height:1.6;">
+                        Thanks for signing up! Have a great day! 
+                    </p>
+                    <p style="margin-top:30px; font-size:14px; color:#333333;">
+                        Sincerely, <br>4day</p>
+                    <p style="font-size:10px; color:#333333; margin-top:20px;">
+                        To unsubscribe, <a href="http://127.0.0.1:5000/unsubscribe?email={to_email}" style="color:#317292;">click here</a></p>
+                </div>
             </body>
         </html>
         """
@@ -135,15 +146,22 @@ def send_holiday_emails():
             
             body_html = f"""
             <html>
-                <body style="font-family: Arial, sans-serif; line-height: 1.5;">
-                    <p>Dear {user['name']},</p>
-                    <p>{holiday_messages[today]}</p>
-                    <p>Sincerely,<br>4day</p>
-                    <p>
-                        To unsubscribe, 
+                <body style="margin:0; padding:0; font-family: Arial, sans-serif; background-color: #317292; line-height: 1.5;">
+                    <div style="max-width:600px; margin:20px auto; 
+                                border-top:4px solid #333333; 
+                                border-bottom:4px solid #333333; 
+                                background:white; padding:30px; 
+                                text-align:center; 
+                                box-shadow:0 0 10px rgba(0,0,0,0.1);">
+                        <h1 style="font-size:24px; color:#333333;">Good Day! {user['name']},</h1>
+                        <p style="font-size:20px; color:#333333; line-height:1.6;">{holiday_messages[today]}</p>
+                        <p style="margin-top:30px; font-size:14px; color:#333333;">Sincerely,<br>4day</p>
+                        <p style="font-size:10px; color:#333333; margin-top:20px;">
+                            To unsubscribe, 
                         <a href="http://127.0.0.1:5000/unsubscribe?email={user['email']}" 
-                           style="color:#ff4c4c;">click here</a>
-                    </p>
+                           style="color:#317292;">click here</a>
+                        </p>
+                    </div>
                 </body>
             </html>
             """
