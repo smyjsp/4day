@@ -17,7 +17,8 @@ By registering with the system, users can receive automated supportive emails du
 - **Automated Emails**: Sends warm, supportive messages during long holiday breaks  
 - **Web Interface**: Simple pages for users to **register** or **unregister** from the mailing list  
 - **Respectful & Secure**: No spam — only meaningful holiday outreach  
-- **SMTP Integration**: full holiday scheduling in development  
+- **SMTP Integration**: holiday scheduling in development  
+- **Fully working website coming soon**
 
 ---
 
@@ -25,7 +26,7 @@ By registering with the system, users can receive automated supportive emails du
 - **Flask** – lightweight backend framework for the web app  
 - **HTML/CSS** – simple UI for register/unregister pages  
 - **smtplib** – for sending automated emails  
-- **dotenv** – environment variables for secure credential handling  
+- **dotenv** – environment variables for secure credential handling and email validation (currently only .com / .mil email addresses)
 
 ---
 
@@ -47,7 +48,7 @@ By registering with the system, users can receive automated supportive emails du
 - User register/unregister system  
 - Holiday scheduling for automated outreach  
 - Database integration for scalability and persistence  
-- Expand with personalized messages and optional volunteer submissions  
+- Expand with personalized messages
 
 ---
 
